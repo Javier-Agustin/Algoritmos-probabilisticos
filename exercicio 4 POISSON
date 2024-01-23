@@ -1,0 +1,65 @@
+#Exercício 4: Poisson
+#from scipy.stats import poisson
+#import numpy
+#import matplotlib.pyplot as plt
+
+# A) Um servidor Web recebe 10 requisições por minuto em média
+# Determine a probabilidade de chegarem mais de 10 requisições em um
+#minuto
+
+#print(1-poisson.cdf(10,10))
+
+# B) Crie uma estratégia para validar o resultado anterior usando a função pmf
+
+# C) Crie um gráfico simulando o número de requisições por minuto em uma
+hora
+
+# D) Simule por uma hora o número de conexões em estado de espera se o
+#servidor
+# for capaz de processar 10 requisições por minuto
+
+
+from scipy.stats import poisson
+import matplotlib.pyplot as plt
+import pandas as pd
+fig, ax = plt.subplots(1, 1)
+
+# A) Um servidor Web recebe 10 requisições por minuto em média
+
+prob_m = poisson.cdf(10,10)
+prob_M = 1-prob_m
+print("Probabilidade conexões ser maior que 10 em um 1 min:", 
+prob_M, " ou ~", int(prob_M*100),"%")
+# B) Crie uma estratégia para validar o resultado anterior usando a função pmf
+
+u = poisson.rvs(10, size = 10, random_state=2)
+print(u)
+count = 0
+n = []
+#------------------------------------------------------------------------------------------------------------
+import numpy  as np
+from scipy.stats import poisson 
+import matplotlib.pyplot as plt 
+ 
+# A) Um servidor Web recebe 10 requisições por minuto em média 
+#      Determine a probabilidade de chegarem mais de 10 requisições em um minuto
+prop = 1 - poisson.cdf(10,10)
+print(f"A: {prop}")
+# B) Crie uma estratégia para validar o resultado anterior usando a função pmf 
+prop_arr = np.arange(0, 11, 1)
+exato = 1 - sum(poisson.pmf(prop_arr, 10))
+print(f"B: {exato}")
+erro = (prop - exato) / exato
+if erro < 0.01:
+    print(f"C: Esta CORRETO pois o Erro = {erro} < 10e-3!!")
+# C) Crie um gráfico simulando o número de requisições por minuto em uma hora 
+plot = poisson.rvs(mu = 10, size = 60)
+plt.hist(plot, density = True, edgecolor = 'black')
+plt.show()
+plt.plot(plot, 'r')
+plt.show()
+# D) Simule por uma hora o número de conexões em estado de espera se o servidor 
+#      for capaz de processar 10 requisições por minuto
+sim = poisson.cdf(10, 10)
+sim *= 60
+print(f"D: Numero de conexões processadas: {sim}")
