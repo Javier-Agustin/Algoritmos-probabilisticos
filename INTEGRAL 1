@@ -1,0 +1,49 @@
+import random
+import matplotlib.pyplot as plt
+import numpy as np
+a=0
+b=2
+H=4
+N=2000
+
+#listas
+xp1=[]
+xp2=[]
+yp1=[]
+yp2=[]
+
+x = np.linspace(a,b,1000) #cria uma sequência de números uniformemente espaçados entre os limites dados
+y = x**2
+
+
+for i in range (0,N):
+    xp=random.uniform(0,b)
+    yp=random.uniform(0,H)
+   
+    if (yp<=(xp**2)):
+        xp1.append(xp)
+        yp1.append(yp)
+
+    else:
+        xp2.append(xp)
+        yp2.append(yp)
+
+
+# eixos da figura da primeira integral
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+ax.spines['left'].set_position('zero')
+ax.spines['bottom'].set_position('zero')
+ax.spines['right'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.xaxis.set_ticks_position('bottom')
+ax.yaxis.set_ticks_position('left')
+
+
+p=len(xp1)/float(N)
+print ("O valor da integral:",p)        
+
+# plotar a curva da integral
+plt.plot(x,y, 'blue')
+
+plt.show()
